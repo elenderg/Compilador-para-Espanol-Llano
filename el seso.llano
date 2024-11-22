@@ -210,7 +210,7 @@ Para adjuntar un buffer to un file:
 Para adjuntar un byte to un string:
   Poner el string's length into un saved length.
   Reassign el string's first usando el string's length plus 1.
-  Poner el string's first plus el saved length into el string's last.
+  Poner el string's first plus el saved length into el string's last byte puntero.
   Poner el byte into el string's last's contenido.
 
 \Para adjuntar un byte a una cadena dada una conteo;
@@ -256,8 +256,8 @@ Para adjuntar un string to another string:
   Agregar el saved length to el combined length.
   Reassign el other string's first usando el combined length.
   Poner el other string's first plus el saved length into un puntero.
-  Copiar bytes desde el string's first to el puntero for el string's length.
-  Poner el other string's first plus el combined length minus 1 into el other string's last.
+  Copiar bytes desde el string's first byte puntero to el puntero for el string's length.
+  Poner el other string's first plus el combined length minus 1 into el other string's last byte puntero.
 
 Para adjuntar un string to another string (handling email transparency):
   Si el string es blank, salir.
@@ -580,7 +580,7 @@ Para capitalizar un string:
   Lazo.
     Si el substring es blank, salir.
     Si el substring's first's contenido es not noise, interrumpir.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
   Uppercase el substring's first's contenido.
 
@@ -823,13 +823,13 @@ Para borrar el stack: \ stack needs work
 
 \Para borrar una cadena;
 Para borrar un string:
-  Unassign el string's first.
-  Void el string's last.
+  Unassign el string's first byte puntero.
+  Void el string's last byte puntero.
 
 \Para borrar una subcadena;
 Para borrar un substring:
-  Void el substring's first.
-  Void el substring's last.
+  Void el substring's first byte puntero.
+  Void el substring's last byte puntero.
 
 \Para borrar un terminal;
 Para borrar un terminal:
@@ -1077,7 +1077,7 @@ Para convertir un filetime to un string:
 Para convertir un flag to un hex string:
   Reassign el hex string's first usando el flag's magnitude.
   Copiar bytes desde el flag's dirección to el hex string's first for el flag's magnitude.
-  Poner el hex string's first plus el flag's magnitude minus 1 into el hex string's last.
+  Poner el hex string's first plus el flag's magnitude minus 1 into el hex string's last byte puntero.
 
 Para convertir un font to un hfont:
   Privatizar el font.
@@ -1112,7 +1112,7 @@ Para convertir some font widths to pdf em units:
 Para convertir un fraction to un hex string:
   Reassign el hex string's first usando el fraction's magnitude.
   Copiar bytes desde el fraction's dirección to el hex string's first for el fraction's magnitude.
-  Poner el hex string's first plus el fraction's magnitude minus 1 into el hex string's last.
+  Poner el hex string's first plus el fraction's magnitude minus 1 into el hex string's last byte puntero.
 
 Para convertir un fraction to un mixed:
   Si el fraction's denominator es 0, Poner 0 into el mixed's whole número; Poner 0 into el mixed's ratio; salir.
@@ -1153,11 +1153,11 @@ Para convertir un gpbitmap to un buffer (pdf style):
 
 Para convertir un hex string to un fraction:
   Si el hex string's length es not el fraction's magnitude, Poner 0 y 1  into el ratio; salir.
-  Copiar bytes desde el hex string's first to el fraction's dirección for el fraction's magnitude.
+  Copiar bytes desde el hex string's first byte puntero to el fraction's dirección for el fraction's magnitude.
 
 Para convertir un hex string to un número:
   Si el hex string's length es not el número's magnitude, borrar el número; salir.
-  Copiar bytes desde el hex string's first to el número's dirección for el número's magnitude.
+  Copiar bytes desde el hex string's first byte puntero to el número's dirección for el número's magnitude.
 
 Para convertir un l-param to un key: \ assumes l-param desde wm_char message
   Poner el l-param into el key.
@@ -1202,11 +1202,11 @@ Para convertir un nibble string to un hex string:
     Si el substring es blank, salir.
     Convertir el substring's first's contenido to un nibble.
     Desplazar el nibble left 4 bits.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Convertir el substring's first's contenido to another nibble.
     Bitwise OR el nibble con el other nibble.
     Adjuntar el nibble to el hex string.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para convertir un número en un byte;
@@ -1233,13 +1233,13 @@ Para convertir un puntero y un length to un string:
   Si el length es 0, salir.
   Reassign el string's first usando el length.
   Copiar bytes desde el puntero to el string's first for el length.
-  Poner el string's first plus el length minus 1 into el string's last.
+  Poner el string's first plus el length minus 1 into el string's last byte puntero.
 
 \Para convertir un puntero to un hex string;
 Para convertir un número to un hex string:
   Reassign el hex string's first usando el número's magnitude.
   Copiar bytes desde el número's dirección to el hex string's first for el número's magnitude.
-  Poner el hex string's first plus el número's magnitude minus 1 into el hex string's last.
+  Poner el hex string's first plus el número's magnitude minus 1 into el hex string's last byte puntero.
 
 \Para convertir un puntero to un nibble string;
 Para convertir un número to un nibble string:
@@ -1287,13 +1287,13 @@ Para convertir un query string to un string:
       Agregar 1 to el substring's first; 
       Repetir.
     Si el substring's length es less than 3, salir.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Convertir el substring's first's contenido to un nibble.
     Desplazar el nibble left 4 bits.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Convertir el substring's first's contenido to another nibble.
     Bitwise OR el nibble con el other nibble.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Adjuntar el nibble to el string.
   Repetir.
 
@@ -1332,8 +1332,8 @@ Para convertir un string y un actual font info y un original font info into un b
       Repetir.
     Convertir el substring to un pdf string.
     Adjuntar el pdf string luego " " luego el offset luego " " to el buffer.
-    Poner el substring's last plus 1 into el substring's last.
-    Poner el substring's last into el substring's first.
+    Poner el substring's last plus 1 into el substring's last byte puntero.
+    Poner el substring's last into el substring's first byte puntero.
     Agregar 1 to el current byte#.
   Repetir.
   Si el substring's first es greater than el string's last, salir.
@@ -1353,7 +1353,7 @@ Para convertir un string to un fraction:
   Si el string es blank, salir.
   Si el string es any integer, convertir el string to el fraction's numerator; salir.
   Colocar un substring on el string.
-  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first.
+  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first byte puntero.
   Si el substring es blank, salir.
   Dividir el substring into un integer substring y un fraction substring usando el dash byte.
   Si el integer substring es blank, Poner el substring into el fraction substring.
@@ -1377,7 +1377,7 @@ Para convertir un string to un nibble string:
     Si el substring es blank, salir.
     Convertir el substring's first's contenido to another nibble string.
     Adjuntar el other nibble string to el nibble string.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para convertir una cadena en un número;
@@ -1385,14 +1385,14 @@ Para convertir un string to un número:
   Poner 0 into el número.
   Colocar un substring on el string.
   Si el substring es blank, salir.
-  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first.
+  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first byte puntero.
   Lazo.
     Si el substring es blank, interrumpir.
     Multiplicar el número by 10.
     Poner el substring's first's contenido into another número.
     Restar 48 desde el other número.
     Agregar el other número to el número.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
   Si el string's first's contenido es el dash byte, negar el número.
 
@@ -1404,9 +1404,9 @@ Para convertir un string to un número between another número y un third número:
 Para convertir un string to un pdf string:
   Poner "(" into el pdf string.
   Colocar un substring on el string.
-  Restar 1 desde el substring's first.
+  Restar 1 desde el substring's first byte puntero.
   Lazo.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Si el substring es blank, interrumpir.
     Si el substring's first's contenido es el left-paren byte, Adjuntar "\(" to el pdf string; repetir.
     Si el substring's first's contenido es el right-paren byte, Adjuntar "\)" to el pdf string; repetir.
@@ -1426,7 +1426,7 @@ Para convertir un string to un puntero: \ assumes puntero es in nibble format
     Poner el substring's first's contenido into un número.
     Desplazar el número left el shift count.
     Bitwise OR el puntero as un número con el número.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Restar 8 desde el shift count.
   Repetir.
 
@@ -1438,7 +1438,7 @@ Para convertir un string to un query string:
     Si el substring es blank, interrumpir.
     Convertir el substring's first's contenido to un query byte.
     Adjuntar el query byte to el query string.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 Para convertir un string to some rows:
@@ -1454,7 +1454,7 @@ Para convertir un string to some rows:
 
 Para convertir un string to un uuid:
   Convertir el string to un wide string y null terminate.
-  Llamar "ole32.dll" "CLSIDFromString" con el wide string's first y el uuid's dirección.
+  Llamar "ole32.dll" "CLSIDFromString" con el wide string's first byte puntero y el uuid's dirección.
 
 Para convertir un string to un wide string:
   Borrar el wide string.
@@ -1463,7 +1463,7 @@ Para convertir un string to un wide string:
     Si el substring es blank, salir.
     Adjuntar el substring's first's contenido to el wide string.
     Adjuntar el null byte to el wide string.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 Para convertir un string to un wide string y null terminate:
@@ -2171,7 +2171,7 @@ Para depurar un string;
 Para debug un string:
   Privatizar el string.
   Null terminate el string.
-  Llamar "user32.dll" "MessageBoxA" con 0 y el string's first y "debug"'s first y 0.
+  Llamar "user32.dll" "MessageBoxA" con 0 y el string's first byte puntero y "debug"'s first y 0.
 
 \Para depurar una cadena (entre comillas);
 Para depurar un string (entre comillas);
@@ -2338,7 +2338,7 @@ Para decidir si un byte es in un string:
   Poner el substring's first's contenido into another byte.
   Lowercase el other byte.
   Si el other byte es el byte, diga sí.
-  Agregar 1 to el substring's first.
+  Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para decidir si un byte es menor que otro byte;
@@ -3045,7 +3045,7 @@ Para decidir si un row es blank:
   Lazo.
   Si el substring es blank, diga sí.
   Si el substring's first's contenido es not noise, diga no.
-  Agregar 1 to el substring's first.
+  Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 Para decidir si un row of un text es selected:
@@ -3277,7 +3277,7 @@ Para decidir si un string does end con another string;
 Para decidir si un string ends con another string:
   Si el other string's length es greater than el string's length, diga no.
   Colocar un substring on el string.
-  Poner el substring's last minus el other string's length plus 1 into el substring's first.
+  Poner el substring's last minus el other string's length plus 1 into el substring's first byte puntero.
   Si el substring es el other string, diga sí.
   Diga no.
 
@@ -3286,7 +3286,7 @@ Para decidir si un string does start con another string;
 Para decidir si un string starts con another string:
   Si el other string's length es greater than el string's length, diga no.
   Colocar un substring on el string.
-  Poner el substring's first plus el other string's length minus 1 into el substring's last.
+  Poner el substring's first plus el other string's length minus 1 into el substring's last byte puntero.
   Si el substring es el other string, diga sí.
   Diga no.
 
@@ -3323,7 +3323,7 @@ Para decidir si un string es any ratio literal:
   Colocar un substring on el string.
   Si el substring es blank, diga no.
   Si el substring's first's contenido es not any numeric starter, diga no.
-  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first.
+  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first byte puntero.
   Dividir el substring into un numerator substring y un denominator substring usando el slash byte.
   Si el numerator substring es not any integer literal, diga no.
   Si el denominator substring es not any integer literal, diga no.
@@ -3332,11 +3332,11 @@ Para decidir si un string es any ratio literal:
 \ To decidir si un string es any integer: \ seemed to be un duplicate of el routine below
 \Slap un substring on el string.
 \If el substring es blank, diga no.
-\If el substring's first's contenido es any sign, Agregar 1 to el substring's first.
+\If el substring's first's contenido es any sign, Agregar 1 to el substring's first byte puntero.
 \If el substring es blank, diga no.
 \Lazo.
   \If el substring's first's contenido es not any digit, diga no.
-  \Add 1 to el substring's first.
+  \Add 1 to el substring's first byte puntero.
   \If el substring es blank, diga sí.
 \Repeat.
 
@@ -3346,11 +3346,11 @@ Para decidir si un string es any integer;
 Para decidir si un string es any integer literal:
   Colocar un substring on el string.
   Si el substring es blank, diga no.
-  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first.
+  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first byte puntero.
   Si el substring es blank, diga no.
   Lazo.
     Si el substring's first's contenido es not any digit, diga no.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Si el substring es blank, diga sí.
   Repetir.
 
@@ -3358,7 +3358,7 @@ Para decidir si un string es any mixed literal:
   Colocar un substring on el string.
   Si el substring es blank, diga no.
   Si el substring's first's contenido es not any numeric starter, diga no.
-  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first.
+  Si el substring's first's contenido es any sign, Agregar 1 to el substring's first byte puntero.
   Dividir el substring into un integer substring y un fraction substring usando el dash byte.
   Si el integer substring es not any integer literal, diga no.
   Si el fraction substring es not any fraction literal, diga no.
@@ -3380,9 +3380,9 @@ Para decidir si un string es any sign:
 Para decidir si un string es any word:
   Si el string's length es less than 2, diga no.
   Colocar un substring on el string.
-  Restar 1 desde el substring's first.
+  Restar 1 desde el substring's first byte puntero.
   Lazo.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Si el substring es blank, diga sí.
     Si el substring's first's contenido es any letter, repetir.
     Si el substring's first's contenido es el single-quote byte, repetir.
@@ -3425,7 +3425,7 @@ Para decidir si un string es dos-compatible:
     Si el substring's first's contenido es el left-alligator byte, diga no.
     Si el substring's first's contenido es el right-alligator byte, diga no.
     Si el substring's first's contenido es el bar byte, diga no.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para decidir si una cadena es mayor que otra cadena;
@@ -3443,7 +3443,7 @@ Para decidir si un string es greater than or igual to another string:
 \Para decidir si una cadena está en otra cadena;
 Para decidir si un string es in another string:
   Colocar un substring on el other string.
-  Poner el substring's first plus el string's length minus 1 into el substring's last.
+  Poner el substring's first plus el string's length minus 1 into el substring's last byte puntero.
   Lazo.
     Si el substring's last es greater than el other string's last, diga no.
     Si el substring es el string, diga sí.
@@ -4496,13 +4496,13 @@ Para dibujar un string at un spot con un color y un font:
   Definir el colorref of el current canvas usando el color.
   Crear el hfont of el current canvas usando el font.
   Ajustar spacing usando el string.
-  Poner el string's first into un substring's first.
-  Poner el substring's first plus el text cutoff minus 1 into el substring's last.
+  Poner el string's first into un substring's first byte puntero.
+  Poner el substring's first plus el text cutoff minus 1 into el substring's last byte puntero.
   Privatizar el spot.
   Lazo.
     Si el substring es blank, interrumpir.
-    Si el substring's last es greater than el string's last, Poner el string's last into el substring's last.
-    Llamar "gdi32.dll" "TextOutA" con el current canvas y el spot's x-coord y el spot's y-coord y el substring's first y el substring's length.
+    Si el substring's last es greater than el string's last, Poner el string's last into el substring's last byte puntero.
+    Llamar "gdi32.dll" "TextOutA" con el current canvas y el spot's x-coord y el spot's y-coord y el substring's first byte puntero y el substring's length.
     Obtener un width usando el substring y el current canvas.
     Agregar el width to el spot's x-coord.
     Mover el substring usando el text cutoff.
@@ -4902,16 +4902,16 @@ Para extraer un designator desde un path:
   Borrar el designator.
   Extraer un drive desde el path.
   Colocar un path substring on el path.
-  Agregar el drive's length to el path substring's first.
+  Agregar el drive's length to el path substring's first byte puntero.
   Si el path substring es blank, Poner el drive into el designator; salir.
   Colocar un substring on el last byte of el path substring.
-  Si el substring's first's contenido es el backslash byte, Restar 1 desde el substring's first.
+  Si el substring's first's contenido es el backslash byte, Restar 1 desde el substring's first byte puntero.
   Lazo.
     Si el substring's first es less than el path substring's first, interrumpir.
     Si el substring's first's contenido es el backslash byte, interrumpir.
-  Restar 1 desde el substring's first.
+  Restar 1 desde el substring's first byte puntero.
   Repetir.
-  Agregar 1 to el substring's first.
+  Agregar 1 to el substring's first byte puntero.
   Poner el substring into el designator.
 
 \Para extraer un directorio de una ruta;
@@ -4920,13 +4920,13 @@ Para extraer un directory desde un path:
   Extraer un drive desde el path.
   Si el drive es blank, salir.
   Colocar un substring on el path.
-  Agregar el drive's length to el substring's first.
+  Agregar el drive's length to el substring's first byte puntero.
   Si el substring es blank, salir.
-  Si el substring's last's contenido es el backslash byte, Restar 1 desde el substring's last.
+  Si el substring's last's contenido es el backslash byte, Restar 1 desde el substring's last byte puntero.
   Lazo.
     Si el substring es blank, interrumpir.
     Si el substring's last's contenido es el backslash byte, interrumpir.
-    Restar 1 desde el substring's last.
+    Restar 1 desde el substring's last byte puntero.
   Repetir.
   Poner el drive luego el substring into el directory.
 
@@ -4947,7 +4947,7 @@ Para extraer un drive desde un path:
   Borrar el drive.
   Si el path's length es less than 3, salir.
   Colocar un substring on el first byte of el path.
-  Agregar 2 to el substring's last.
+  Agregar 2 to el substring's last byte puntero.
   Si el substring ends con ":\", Poner el substring into el drive; salir.
   Si el substring does not start con "\\", salir.
   Colocar el substring on el first byte of el path.
@@ -4955,7 +4955,7 @@ Para extraer un drive desde un path:
     Si el substring's last es greater than el path's last, salir.
     Si el substring's last's contenido es el backslash byte, Agregar 1 to un count.
     Si el count es 4, interrumpir. \ "\\computer\share\"
-    Agregar 1 to el substring's last.
+    Agregar 1 to el substring's last byte puntero.
   Repetir.
   Poner el substring into el drive.
 
@@ -4969,7 +4969,7 @@ Para extraer un extension desde un path:
     Si el substring's first's contenido es el colon byte, salir.
     Si el substring's first's contenido es el backslash byte, salir.
     Si el substring's first's contenido es el period byte, interrumpir.
-    Restar 1 desde el substring's first.
+    Restar 1 desde el substring's first byte puntero.
   Repetir.
   Poner el substring into el extension.
 
@@ -5066,7 +5066,7 @@ Para llenar un ellipse on un spot con un color:
 Para llenar un string con un byte usando un count:
   Reassign el string's first usando el count.
   Llenar bytes con el byte starting at el string's first for el count.
-  Poner el string's first plus el count minus 1 into el string's last.
+  Poner el string's first plus el count minus 1 into el string's last byte puntero.
 
 Para finalize after run:
   Si el heap count es 0, salir.
@@ -5161,7 +5161,7 @@ Para encontrar next usando un row y un text y un flag:
   Si el text es nil, salir.
   Si el row es nil, salir.
   Colocar un substring on el row's string.
-  Poner el substring's first plus el encontrar string's length minus 1 into el substring's last.
+  Poner el substring's first plus el encontrar string's length minus 1 into el substring's last byte puntero.
   Si el row's row# es el encontrar anchor's row#, mover el substring usando el encontrar anchor's column# minus 1.
   Lazo.
     Si el substring's last es greater than or igual to el row's string's last, salir.
@@ -5192,8 +5192,8 @@ Para encontrar next usando un text y un flag (wrapped text):
   Si el text es nil, salir.
   Convertir el encontrar anchor to un absolute position llamado offset usando el text.
   Extraer un string desde el text (no linefeed additions).
-  Poner el string's first plus el offset minus 1 into un substring's first.
-  Poner el substring's first plus el encontrar string's length minus 1 into el substring's last.
+  Poner el string's first plus el offset minus 1 into un substring's first byte puntero.
+  Poner el substring's first plus el encontrar string's length minus 1 into el substring's last byte puntero.
   Lazo.
     Si el substring's last es greater than el string's last, salir.
     Si el substring es el encontrar string (accent-free compare), interrumpir. \ for spanish incremental find
@@ -5217,7 +5217,7 @@ Para encontrar el next misspelling usando un row y un text y un flag:
     Si el rider's token es blank, salir.
     Si el rider's token es not misspelled, repetir.
   Definir el flag.
-  Poner el rider's token's first minus el row's string's first plus 1 into el text's anchor column#.
+  Poner el rider's token substring's first byte puntero minus el row's string's first plus 1 into el text's anchor column#.
   Poner el row's row# into el text's anchor row#.
   Poner el rider's token's last minus el row's string's first plus 2 into el text's caret column#.
   Poner el row's row# into el text's caret row#.
@@ -5306,9 +5306,9 @@ Para encontrar un substring in un string usando another string:
   Lazo.
     Si el substring es blank, salir.
     Si el substring starts con el other string, interrumpir.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
-  Poner el substring's first plus el other string's length minus 1 into el substring's last.
+  Poner el substring's first plus el other string's length minus 1 into el substring's last byte puntero.
 
 Para encontrar un value string usando some dyads y un name:
   Encontrar un dyad usando el dyads y el name.
@@ -5471,7 +5471,7 @@ Para obtener un bucket# usando un string y un index: \ based on el djb2 algorith
     Desplazar el bucket# left 5 bits.
     Agregar el número to el bucket#.
     Agregar el byte to el bucket#.
-    Agregar 3 to el substring's first.
+    Agregar 3 to el substring's first byte puntero.
     Si el substring es blank, interrumpir.
   Repetir.
   Bitwise AND el bucket# con el largest número.
@@ -5515,7 +5515,7 @@ Para obtener un column# usando un row y un spot y un text:
     Dividir el other width by 2.
     Restar el other width desde el width.
     Si el spot's x-coord es less than el width, interrumpir.
-    Agregar 1 to el substring's last.
+    Agregar 1 to el substring's last byte puntero.
   Repetir.
   Poner el substring's last minus el row's string's first plus 1 into el column#.
   Destroy el hfont of el memory canvas.
@@ -5842,7 +5842,7 @@ Para obtener un sockaddr usando un host string:
   Poner 2 [af_inet] into un addrinfo's ai_family.
   Poner 1 [sock_stream] into el addrinfo's ai_sockettype.
   Poner 6 [ipproto_tcp] into el addrinfo's ai_protocol.
-  Llamar el addrinfo routines' getaddrinfo con el host string's first y 0 y el addrinfo's dirección y un addrinfoptr's dirección retornando un result número.
+  Llamar el addrinfo routines' getaddrinfo con el host string's first byte puntero y 0 y el addrinfo's dirección y un addrinfoptr's dirección retornando un result número.
   Si el result número es not 0, Poner "No pude resolver nombre de anfitrión (host) '" luego el host luego "'." into el error de e/s; salir.
   Si el addrinfoptr es nil, Poner "No pude resolver nombre de anfitrión (host) '" luego el host luego "'." into el error de e/s; salir.
   Poner el addrinfoptr's ai_addr's contenido into el sockaddr.
@@ -5854,8 +5854,8 @@ Para obtener un spot usando un position y un text:
   Obtener un row usando el position's row# y el text.
   Obtener un box usando el row y el text.
   Poner el box's top into el spot's y-coord.
-  Poner el row's string's first into un substring's first.
-  Poner el substring's first plus el position's column# minus 2 into el substring's last.
+  Poner el row's string's first into un substring's first byte puntero.
+  Poner el substring's first plus el position's column# minus 2 into el substring's last byte puntero.
   Obtener un width usando el substring y el memory canvas y el text's font.
   Poner el box's left plus el width into el spot's x-coord.
   Obtener un offset pair usando el row's working string y el box y el text's font y el text's alignment.
@@ -5870,7 +5870,7 @@ Para obtener un start width y un substring usando un row y un spot y un text (fo
   Colocar el substring on el row's working string.
   Obtener un offset pair usando el substring y el box y el text's font y el text's alignment (fast).
   Poner el text's globalized origin's x-coord plus el offset pair's x-número into el start width.
-  Poner el substring's first plus el text cutoff minus 1 into el substring's last.
+  Poner el substring's first plus el text cutoff minus 1 into el substring's last byte puntero.
   Lazo.
     Si el substring's last es greater than or igual to el row's string's last, interrumpir.
     Obtener un width usando el substring y el memory canvas.
@@ -5879,7 +5879,7 @@ Para obtener un start width y un substring usando un row y un spot y un text (fo
     Agregar el width to el start width.
     Mover el substring usando el text cutoff.
   Repetir.
-  Poner el substring's first into el substring's last.
+  Poner el substring's first into el substring's last byte puntero.
 
 Para obtener un string desde el stack:
   Borrar el string.
@@ -5938,7 +5938,7 @@ Para obtener un width usando un número y some font widths: \ indexes are 0 based
   Poner el número puntero's contenido into el width.
 
 Para obtener un width usando un string y un canvas: \ assumes font es already selected in canvas
-  Llamar "gdi32.dll" "GetTextExtentPoint32A" con el canvas y el string's first y el string's length y un pair's dirección.
+  Llamar "gdi32.dll" "GetTextExtentPoint32A" con el canvas y el string's first byte puntero y el string's length y un pair's dirección.
   Poner el pair's x-número into el width.
 
 Para obtener un width usando un string y un canvas y un font:
@@ -6547,14 +6547,14 @@ Para crear un figure using un string y un center spot:
     Si el substring's length es less than 2, salir.
     Poner el substring's first's contenido into un byte.
     Poner el byte minus el little-a byte into un spot's y.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
     Poner el substring's first's contenido into el byte.
     Poner el byte minus el little-a byte into el spot's x.
     Multiplicar el spot by 1/4 inch.
     Agregar el center spot's x minus 3-1/8 inches plus 1 pixel to el spot's x.
     Agregar el center spot's y minus 3-1/8 inches plus 1 pixel to el spot's y.
     Adjuntar el spot to el figure.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 Para imaginar un horizontal line un fraction of el way up desde el bottom of un box;
@@ -7272,20 +7272,20 @@ Para insertar un string into another string before un byte#:
   Privatizar el byte#.
   Limitar el byte# to 1 y el other string's length plus 1.
   Colocar un substring on el other string. \ left side
-  Poner el substring's first plus el byte# minus 2 into el substring's last.
+  Poner el substring's first plus el byte# minus 2 into el substring's last byte puntero.
   Colocar another substring on el other string. \ right side
-  Poner el other substring's first plus el byte# minus 1 into el other substring's first.
+  Poner el other substring's first plus el byte# minus 1 into el other substring's first byte puntero.
   Poner el other string's length plus el string's length into un combined length.
   Reassign un puntero usando el combined length.
-  Poner el puntero into un third substring's first.
-  Copiar bytes desde el substring's first to el third substring's first for el substring's length.
-  Agregar el substring's length to el third substring's first.
-  Copiar bytes desde el string's first to el third substring's first for el string's length.
-  Agregar el string's length to el third substring's first.
-  Copiar bytes desde el other substring's first to el third substring's first for el other substring's length.
-  Unassign el other string's first. \ don't use Poner un string into un string to prevent extra allocating y copying
-  Poner el puntero into el other string's first.
-  Poner el other string's first plus el combined length minus 1 into el other string's last.
+  Poner el puntero into un third substring's first byte puntero.
+  Copiar bytes desde el substring's first byte puntero to el third substring's first for el substring's length.
+  Agregar el substring's length to el third substring's first byte puntero.
+  Copiar bytes desde el string's first byte puntero to el third substring's first for el string's length.
+  Agregar el string's length to el third substring's first byte puntero.
+  Copiar bytes desde el other substring's first byte puntero to el third substring's first for el other substring's length.
+  Unassign el other string's first byte puntero. \ don't use Poner un string into un string to prevent extra allocating y copying
+  Poner el puntero into el other string's first byte puntero.
+  Poner el other string's first plus el combined length minus 1 into el other string's last byte puntero.
 
 Para insertar un string into un text:
   Si el text es nil, salir.
@@ -7573,7 +7573,7 @@ Para lowercase un string:
   Lazo.
     Si el substring es blank, salir.
     Lowercase el substring's first's contenido.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para minúsculas de un texto;
@@ -8119,7 +8119,7 @@ Para mover un rider (quoted string rules):
     Incrementar el rider.
     Si el rider's source es blank, salir.
     Si el rider's source's first's contenido es not el double-quote byte, repetir.
-    Si el rider's source's first es el rider's source's last, incrementar el rider; salir.
+    Si el rider's source's first es el rider's token substring's last byte puntero, incrementar el rider; salir.
     Incrementar el rider.
     Si el rider's source's first's contenido es not el double-quote byte, salir.
   Repetir.
@@ -8168,8 +8168,8 @@ Para mover un rider usando un box (word wrapping rules):
     Si el rider's source es blank, salir.
     Mover el other rider (word wrapping rules).
     Si el other rider's token es blank, salir.
-    Si el other rider's token's first's contenido es el return byte, incrementar el rider; salir.
-    Si el other rider's token's first's contenido es whitespace, incrementar el rider by el other rider's token's length; repetir.
+    Si el other rider's token substring's first byte puntero's contenido es el return byte, incrementar el rider; salir.
+    Si el other rider's token substring's first byte puntero's contenido es whitespace, incrementar el rider by el other rider's token's length; repetir.
     Si el rider's token es blank, incrementar el rider by el other rider's token's length; repetir.
     Si el rider's token luego el other rider's token es wider than el box, salir.
     Incrementar el rider by el other rider's token's length.
@@ -8259,8 +8259,8 @@ Para mover some squares slantways:
 
 \Para mover una subcadena dado un número;
 Para mover un substring usando un número:
-  Agregar el número to el substring's first.
-  Agregar el número to el substring's last.
+  Agregar el número to el substring's first byte puntero.
+  Agregar el número to el substring's last byte puntero.
 
 \Para mover un texto hacia abajo algunos twips;
 Para mover un text down some twips:
@@ -8516,14 +8516,14 @@ Para normalizar un vertical line:
 Para null terminate un string:
   Poner el string's length into un saved length.
   Reassign el string's first usando el saved length plus 1.
-  Poner el string's first plus el saved length minus 1 into el string's last.
+  Poner el string's first plus el saved length minus 1 into el string's last byte puntero.
   Poner el string's last plus 1 into un byte puntero.
   Poner el null byte into el byte puntero's contenido.
 
 Para null terminate un wide string:
   Poner el wide string's length into un saved length.
   Reassign el wide string's first usando el saved length plus 2.
-  Poner el wide string's first plus el saved length minus 1 into el wide string's last.
+  Poner el wide string's first plus el saved length minus 1 into el wide string's last byte puntero.
 
 \Para abrir un archivo dado una ruta;
 Para abrir un file usando un path:
@@ -8988,21 +8988,21 @@ Para post un data string to un url y receive un response string: \ only works co
 Para anteponer un byte to un string:
   Poner el string's length into un saved length.
   Reassign el string's first usando el string's length plus 1.
-  Copiar bytes desde el string's first to el string's first plus 1 for el saved length.
-  Poner el string's first plus el saved length into el string's last.
+  Copiar bytes desde el string's first byte puntero to el string's first plus 1 for el saved length.
+  Poner el string's first plus el saved length into el string's last byte puntero.
   Poner el byte into el string's first's contenido.
 
 \Para anteponer una cadena a otra cadena;
 Para anteponer un string to another string:
   Poner el other string's length plus el string's length into un combined length.
   Reassign un puntero usando el combined length.
-  Poner el puntero into un substring's first.
-  Copiar bytes desde el string's first to el substring's first for el string's length.
-  Agregar el string's length to el substring's first.
-  Copiar bytes desde el other string's first to el substring's first for el other string's length.
-  Unassign el other string's first. \ to avoid extra allocates y copies
-  Poner el puntero into el other string's first.
-  Poner el other string's first plus el combined length minus 1 into el other string's last.
+  Poner el puntero into un substring's first byte puntero.
+  Copiar bytes desde el string's first byte puntero to el substring's first for el string's length.
+  Agregar el string's length to el substring's first byte puntero.
+  Copiar bytes desde el other string's first byte puntero to el substring's first for el other string's length.
+  Unassign el other string's first byte puntero. \ to avoid extra allocates y copies
+  Poner el puntero into el other string's first byte puntero.
+  Poner el other string's first plus el combined length minus 1 into el other string's last byte puntero.
 
 \Para anteceder una cosa a algunas cosas;
 Para anteponer un lista to some listas:
@@ -9185,7 +9185,7 @@ Para poner un byte into un string:
   Poner 1 into un length.
   Reassign el string's first usando el length.
   Poner el byte into el string's first's contenido.
-  Poner el string's first into el string's last.
+  Poner el string's first into el string's last byte puntero.
 
 \Para poner un byte en una wyrd;
 Para poner un byte into un wyrd:
@@ -9694,7 +9694,7 @@ Para poner un roundy box into another roundy box:
 Para poner un row's working string into un substring:
   Si el row es nil, borrar el substring; salir.
   Colocar el substring on el row's string.
-  Restar 1 desde el substring's last.
+  Restar 1 desde el substring's last byte puntero.
 
 Para poner un selection into another selection:
   Poner el selection's anchor into el other selection's anchor.
@@ -9734,10 +9734,10 @@ Para centrar un spot in un box:
 Para poner un string into another string:
   Poner el string's length into un saved length.
   Assign un puntero usando el saved length.
-  Copiar bytes desde el string's first to el puntero for el saved length.
-  Unassign el other string's first.
-  Poner el puntero into el other string's first.
-  Poner el other string's first plus el saved length minus 1 into el other string's last.
+  Copiar bytes desde el string's first byte puntero to el puntero for el saved length.
+  Unassign el other string's first byte puntero.
+  Poner el puntero into el other string's first byte puntero.
+  Poner el other string's first plus el saved length minus 1 into el other string's last byte puntero.
 
 Para poner un string into un letter:
   Poner el string's first's contenido into el letter.
@@ -9761,7 +9761,7 @@ Para poner un string on el windows clipboard:
   Poner el string's length plus 1 into un número.
   Llamar "kernel32.dll" "GlobalAlloc" con 66 [ghnd] y el número retornando un handle.
   Llamar "kernel32.dll" "GlobalLock" con el handle retornando un puntero.
-  Copiar bytes desde el string's first to el puntero for el string's length.
+  Copiar bytes desde el string's first byte puntero to el puntero for el string's length.
   Llamar "kernel32.dll" "GlobalUnlock" con el handle.
   Llamar "user32.dll" "SetClipboardData" con 1 [cf_text] y el handle.
   Llamar "user32.dll" "CloseClipboard".
@@ -10028,7 +10028,7 @@ Para citar un string: \ inserts leading, trailing y nested double-quotes
     Si el substring es blank, interrumpir.
     Adjuntar el substring's first's contenido to el other string.
     Si el substring's first's contenido es el double-quote byte, Adjuntar el double-quote byte to el other string.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
   Adjuntar el double-quote byte to el other string.
   Poner el other string into el string.
@@ -10302,10 +10302,10 @@ Para eliminar any selected bytes in un text:
   Normalizar el selection.
   Obtener un row usando el selection's anchor row# y el text.
   Colocar un substring on el row's string.
-  Poner el substring's first plus el selection's anchor column# minus 2 into el substring's last.
+  Poner el substring's first plus el selection's anchor column# minus 2 into el substring's last byte puntero.
   Obtener another row usando el selection's caret row# y el text.
   Colocar another substring on el other row's string.
-  Poner el other substring's first plus el selection's caret column# minus 1 into el other substring's first.
+  Poner el other substring's first plus el selection's caret column# minus 1 into el other substring's first byte puntero.
   Poner el substring luego el other substring into el row's string.
   Eliminar el rows of el text between el row's next y el other row.
   Poner el selection's anchor into el text's caret.
@@ -10335,7 +10335,7 @@ Para eliminar bytes desde un string usando un substring:
   Copiar bytes desde el puntero to el substring's first for el length.
   Poner el string's length minus el substring's length into un new length.
   Reassign el string's first usando el new length.
-  Poner el string's first plus el new length minus 1 into el string's last.
+  Poner el string's first plus el new length minus 1 into el string's last byte puntero.
 
 Para eliminar bytes desde un text (backspace over un return):
   Si el text es nil, salir.
@@ -10403,7 +10403,7 @@ Para eliminar leading bytes desde un string usando un count:
   Privatizar el count.
   Si el count es greater than el string's length, borrar el string; salir.
   Colocar un substring on el first byte of el string.
-  Poner el substring's first plus el count minus 1 into el substring's last.
+  Poner el substring's first plus el count minus 1 into el substring's last byte puntero.
   Eliminar bytes desde el string usando el substring.
 
 \Para eliminar el ruido iniciales de una cadena;
@@ -10445,7 +10445,7 @@ Para eliminar trailing bytes desde un string usando un count:
   Privatizar el count.
   Si el count es greater than el string's length, borrar el string; salir.
   Colocar un substring on el last byte of el string.
-  Poner el substring's last minus el count plus 1 into el substring's first.
+  Poner el substring's last minus el count plus 1 into el substring's first byte puntero.
   Eliminar bytes desde el string usando el substring.
 
 \Para eliminar el ruido al final de una cadena;
@@ -10483,7 +10483,7 @@ Para reemplazar un byte con another byte in un string:
     Si el substring es blank, salir.
     Si el substring's first's contenido es not el byte, Agregar 1 to el substring's first; repetir.
     Poner el other byte into el substring's first's contenido.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para volver a poner en cola un event
@@ -10829,7 +10829,7 @@ Para hablar un string:
   Si el string es blank, salir.
   Convertir el string to un wide string.
   Null terminate el wide string.
-  Llamar el talker's vtable's speak con el talker y el wide string's first y 17 [svsfdefault+svsflagsasyn+svsfisnotxml] y 0.
+  Llamar el talker's vtable's speak con el talker y el wide string's first byte puntero y 17 [svsfdefault+svsflagsasyn+svsfisnotxml] y 0.
 
 Para hablar un string y esperar;
 \Para hablar una cadena y esperar;
@@ -10840,7 +10840,7 @@ Para hablar un string y wait:
   Si el string es blank, salir.
   Convertir el string to un wide string.
   Null terminate el wide string.
-  Llamar el talker's vtable's speak con el talker y el wide string's first y 16 [svsfdefault+svsfisnotxml] y 0.
+  Llamar el talker's vtable's speak con el talker y el wide string's first byte puntero y 16 [svsfdefault+svsfisnotxml] y 0.
 
 Para scale un box usando un ratio;
 Para scale un box usando un fraction:
@@ -11326,18 +11326,18 @@ Para simplificar un reply:
 Para omitir any leading linefeed byte in un substring:
   Si el substring es blank, salir.
   Si el substring's first's contenido es not el linefeed byte, salir.
-  Agregar 1 to el substring's first.
+  Agregar 1 to el substring's first byte puntero.
 
 Para omitir any leading noise in un substring:
     Si el substring es blank, salir.
     Si el substring's first's contenido es not noise, salir.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 Para omitir any non-alphanumeric bytes in un substring:
     Si el substring es blank, salir.
     Si el substring's first's contenido es alphanumeric, salir.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para omitir una línea en la terminal;
@@ -11348,7 +11348,7 @@ Para omitir word characters in un substring:
     Si el substring es blank, salir.
     Si el substring está on any contraction, Agregar 1 to el substring's first; repetir.
     Si el substring's first's contenido es not alphanumeric, salir.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 Para colocar un rider on another rider:
@@ -11367,18 +11367,18 @@ Para colocar un substring on any selected bytes in un row of un text:
   Si el row of el text es not selected, salir.
   Colocar el substring on el row's string.
   Poner el text's normalized selection into un selection.
-  Si el row's row# es el selection's caret row#, Poner el substring's first plus el selection's caret column# minus 2 into el substring's last.
-  Si el row's row# es el selection's anchor row#, Poner el substring's first plus el selection's anchor column# minus 1 into el substring's first.
+  Si el row's row# es el selection's caret row#, Poner el substring's first plus el selection's caret column# minus 2 into el substring's last byte puntero.
+  Si el row's row# es el selection's anchor row#, Poner el substring's first plus el selection's anchor column# minus 1 into el substring's first byte puntero.
 
 Para colocar un substring on el first byte of un string:
   Colocar el substring on el string.
   Si el string es blank, salir.
-  Poner el string's first into el substring's last.
+  Poner el string's first into el substring's last byte puntero.
 
 Para colocar un substring on el last byte of un string:
   Colocar el substring on el string.
   Si el string es blank, salir.
-  Poner el string's last into el substring's first.
+  Poner el string's last into el substring's first byte puntero.
 
 \Para colocar una subcadena en un cadena;
 Para colocar un substring on un string:
@@ -11499,11 +11499,11 @@ Para dividir un string into un left substring y un right substring usando un sep
   Borrar el left.
   Borrar el right.
   Si el string es blank, salir.
-  Poner el string's first into un substring's first.
-  Poner el substring's first minus 1 into el substring's last.
+  Poner el string's first into un substring's first byte puntero.
+  Poner el substring's first minus 1 into el substring's last byte puntero.
   Lazo.
     Si el substring's last es greater than el string's last, salir.
-    Agregar 1 to el substring's last.
+    Agregar 1 to el substring's last byte puntero.
     Si el substring's last's contenido es el separator byte, interrumpir.
   Repetir.
   Poner el substring's first into el left's first.
@@ -13750,13 +13750,13 @@ Para unquote un string:
   Colocar un substring on el string.
   Si el substring es blank, interrumpir.
   Si el substring's first's contenido es not el double-quote byte, salir.
-  Agregar 1 to el substring's first.
+  Agregar 1 to el substring's first byte puntero.
   Lazo.
   Si el substring es blank, interrumpir.
   Si el substring's first es el substring's last, interrumpir.
   Adjuntar el substring's first's contenido to another string.
-  Si el substring's first's contenido es el double-quote byte, Agregar 1 to el substring's first.
-  Agregar 1 to el substring's first.
+  Si el substring's first's contenido es el double-quote byte, Agregar 1 to el substring's first byte puntero.
+  Agregar 1 to el substring's first byte puntero.
   Repetir.
   Poner el other string into el string.
 
@@ -13803,7 +13803,7 @@ Para uppercase un string:
   Lazo.
     Si el substring es blank, salir.
     Uppercase el substring's first's contenido.
-    Agregar 1 to el substring's first.
+    Agregar 1 to el substring's first byte puntero.
   Repetir.
 
 \Para mayúsculas de un texto;
@@ -14122,7 +14122,7 @@ Para trazar un string un radius desde el middle of un box:
   Trazar el string usando el box's center y el radius.
 
 Para escribir un string to stdout:
-  Llamar "kernel32.dll" "WriteFile" con el StdOut handle y el string's first y el string's length y un número's dirección y nil.
+  Llamar "kernel32.dll" "WriteFile" con el StdOut handle y el string's first byte puntero y el string's length y un número's dirección y nil.
 
 Para escribir un string while turning un fraction of el way;
 Para escribir un string while turning un fraction of el way around;
